@@ -19,11 +19,18 @@ const ReviewForm = () => {
     setContent(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    // 기본 동작 제한
+    e.preventDefault();
+    console.log(title, rating, content);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input value={title} onChange={handleTitleChange} />
       <input type="number" value={rating} onChange={handleRatingChange} />
       <textarea value={content} onChange={handleContentChange} />
+      <button type="submit">확인</button>
     </form>
   );
 };
