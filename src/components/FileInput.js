@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
-const FileInput = ({ name, value, onChange }) => {
+const FileInput = ({ name, value, onChange, initialPreview }) => {
   // 실제 DOM 노드를 직접 참조 가능
   // DOM 노드는 렌더링이 끝나야 생겨서 Ref 객체의 current 값도 렌더링이 끝나야 생김
   const inputRef = useRef();
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState(initialPreview);
 
   const handleChange = (e) => {
     const nextValue = e.target.files[0];
@@ -30,11 +30,11 @@ const FileInput = ({ name, value, onChange }) => {
 
     // 사이드이펙트 정리
     return () => {
-      setPreview();
+      setPreview(initialPreview);
       // revokeObjectURL : 생성한 ObjdectURL 해제
       URL.revokeObjectURL(nextPreview);
     };
-  }, [value]);
+  }, [value, initialPreview]);
 
   return (
     <div>
